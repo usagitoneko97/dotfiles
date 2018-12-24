@@ -1,0 +1,19 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.gvimrc: gvimrc
+    ~/.configs/i3: configs/i3
+    ~/.configs/latte: configs/latte
+    ~/.configs/fcitx: configs/fcitx
+    ~/.configs/polybar: configs/polybar
+    ~/.configs/ranger: configs/ranger
+    ~/.configs/plasma-workspace: configs/plasma-workspace
+    ~/.vim_runtime: .vim_runtime
+    ~/.vimrc: .vimrc
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
