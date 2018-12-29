@@ -14,6 +14,8 @@
     ~/.configs/plasma-workspace: configs/plasma-workspace
     ~/.vim_runtime: .vim_runtime
     ~/.vimrc: .vimrc
+    ~/.zshrc: .zshrc
+    ~/.ideavimrc : .ideavimrc
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
