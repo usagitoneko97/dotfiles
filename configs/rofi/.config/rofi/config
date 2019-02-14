@@ -1,0 +1,5 @@
+rofi.show: run
+rofi.modi: window,ssh,run
+rofi.terminal:urxvt
+rofi.font: URW Gothic L 15
+rofi.theme: /usr/share/rofi/themes/gruvbox-light-soft.rasi

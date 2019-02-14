@@ -1,6 +1,6 @@
+My dotfiles powered by GNU stow. Make sure `stow` is installed in the system
 ## Installing
+By using stow, you can choose which dots to install. E.g.:
 ```bash
-git clone https://github.com/usagitoneko97/dotfiles.git
-cd dotfiles
-./install
+stow x vim -t ~/
 ```

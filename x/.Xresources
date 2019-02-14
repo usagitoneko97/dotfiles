@@ -1,0 +1,99 @@
+!--------------------xdefauls
+URxvt.font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=11
+!URxvt.font: xft:WenQuanYi Micro Hei Mono:regular:size=11
+! special
+*.foreground:   #BBA590
+*.background:   #262626
+*.cursorColor:  #FF5050
+
+! black
+*.color0  : #4b5262
+*.color8  : #434a5a
+
+! red
+*.color1  : #bf616a
+*.color9  : #b3555e
+
+! green
+*.color2  : #a3be8c
+*.color10 : #93ae7c
+
+! yellow
+*.color3  : #ebcb8b
+*.color11 : #dbbb7b
+
+! blue
+*.color4  : #81a1c1
+*.color12 : #7191b1
+
+! magenta
+*.color5  : #b48ead
+*.color13 : #a6809f
+
+! cyan
+*.color6  : #93e5cc
+*.color14 : #7bcdb4
+
+! white
+*.color7  : #e5e9f0
+*.color15 : #d1d5dc
+
+
+! ------------------------------------------------------------------------------
+! URxvt configs
+! ------------------------------------------------------------------------------
+
+! general settings
+URxvt*saveline:         15000
+URxvt*termName:         rxvt-256color
+URxvt*iso14755:         false
+
+! appearance
+URxvt*depth:            34
+!URxvt*background:      rgba:0000/0000/0000/AAAA
+!URxvt*background:      [100]#262626
+URxvt.underlineColor:   #81a1c1
+URxvt.highlightColor:   #81a1c1
+URxvt.throughColor:     Blue
+URxvt*cursorColor:      #FF5050
+URxvt*cursorColor2:     Magenta
+URxvt*scrollBar:        false
+URxvt*scrollBar_right:  false
+URxvt*internalBorder:   0
+URxvt*externalBorder:   0
+URxvt.colorIT:      	#a3be8c
+URxvt.colorBD:      	#e5e9f0
+URxvt.colorUL:      	#81a1c1
+URxvt.geometry: 		74x14
+URxvt.internalBorder:	10
+
+! perl extensions
+!URxvt.perl-ext-common:  default,clipboard,url-select,keyboard-select
+!URxvt.perl-ext-common:  default,clipboard,url-select,keyboard-select,tabbed
+
+! macros for clipboard and selection
+
+URxvt.copyCommand:      xclip -i -selection clipboard
+URxvt.pasteCommand:     xclip -o -selection clipboard
+URxvt.keysym.M-c:       perl:clipboard:copy
+URxvt.keysym.M-v:       perl:clipboard:paste
+URxvt.keysym.M-C-v:     perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape:  perl:keyboard-select:activate
+URxvt.keysym.M-s:       perl:keyboard-select:search
+URxvt.keysym.M-u:       perl:url-select:select_next
+URxvt.urlLauncher:      firefox
+URxvt.underlineURLs:    true
+URxvt.urlButton:        1
+
+! tabbed
+URxvt.tabbed.tabbar-fg: 4
+URxvt.tabbed.tabbar-bg: 16
+URxvt.tabbed.tab-fg:    15
+URxvt.tabbed.tab-bg:    4
+URxvt*buffered:         false          
+
+! fcitx configuration
+urxvt.perl-ext: xim-onthespot
+urxvt.inputMethod: fcitx
+urxvt.preeditType: OnTheSpot
+
