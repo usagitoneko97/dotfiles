@@ -39,6 +39,9 @@ nnoremap <leader>bs :action ShowBookmarks<cr>
 nnoremap <leader>bn :action ToggleBookmark<cr>
 nnoremap <leader>bt :action ToggleBookmarkWithMnemonic<cr>
 
+" live template
+nnoremap <leader>lt :action InsertLiveTemplate<cr>
+
 " commit
 nnoremap <leader>c :action Vcs.QuickListPopupAction<cr>
 
