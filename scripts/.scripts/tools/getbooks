@@ -1,0 +1,15 @@
+#!/bin/sh
+urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
+[ -z "$1" ] && echo "give the link to the epub" && exit
+book_loc="/home/usagitoneko/Dropbox/Apps/Books"
+
+original_filename=$(basename "$1")
+original_filename=$(urldecode "$original_filename")
+base_name=$(basename -s .epub "$1")
+base_name=$(urldecode "$base_name")
+wget -P "$book_loc" "$1" 
+source_name="${book_loc}/${original_filename}" 
+target_name="${book_loc}/${base_name}.mobi"
+ebook-convert "$source_name" "$target_name" --share-not-sync
+calibredb add "$target_name"
+calibre-server

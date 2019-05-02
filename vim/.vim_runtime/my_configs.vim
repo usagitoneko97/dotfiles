@@ -1,7 +1,5 @@
 "" ==> Personal Preference	
 " ----------------------------------	
-" move register in a circular list	
-noremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>	
 vnoremap <leader>r "hy:%s/<C-r>h//gc<left><left><left>	
  " window navigation	
 nnoremap <a-h> gT	

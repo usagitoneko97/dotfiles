@@ -8,7 +8,7 @@
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -62,7 +62,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, vi-mode)
+plugins=(git, vi-mode, zsh-autosuggestions)
 bindkey -v
 bindkey 'jk' vi-cmd-mode
 
@@ -96,6 +96,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias youtube-music="youtube-dl --extract-audio --audio-quality 0"
+alias youtube-music="youtube-dl --extract-audio --audio-quality 0 --audio-format m4a"
 alias i3c="vim ~/.config/i3/config"
 alias vimc="vim ~/.vim_runtime/my_configs.vim"
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH"
+export IDF_PATH=~/esp/esp-idf
