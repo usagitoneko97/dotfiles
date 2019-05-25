@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TORRENT_CHOICE=$(cat $SCRIPT/search_site.txt | rofi -dmenu) 
+TORRENT_CHOICE=$(cat $SCRIPT/data/search_site.txt | rofi -dmenu) 
 search_query=$(rofi -dmenu -i -p "search string" | sed 's/ /+/g')
 if [ "$TORRENT_CHOICE" = "1337x.to" ]; then
     link="1337x.to/search/"$search_query"/1/"
