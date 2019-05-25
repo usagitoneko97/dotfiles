@@ -10,6 +10,9 @@ base_name=$(urldecode "$base_name")
 wget -P "$book_loc" "$1" 
 source_name="${book_loc}/${original_filename}" 
 target_name="${book_loc}/${base_name}.mobi"
+notify-send "converting $source_name to $target_name"
 ebook-convert "$source_name" "$target_name" --share-not-sync
 calibredb add "$target_name"
+ip_addr=$(ip addr show | grep wlp2s0 | awk '{match($0,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/); ip = substr($0,RSTART,RLENGTH); print ip}')
+notify-send "calibre server is running in ip: $ip_addr"
 calibre-server

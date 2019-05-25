@@ -1,0 +1,11 @@
+reddit.com
+youtube.com
+web.whatsapp.com
+gitlab.com
+google.com
+facebook.com
+goodreads.com
+gmail.com
+github.com
+gen.lib.rus.ec/
+forum.mobilism.org/index.php

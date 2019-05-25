@@ -10,6 +10,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $TERMINAL urxvt
+set $term --no-startup-id $TERMINAL
 focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -100,9 +102,6 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
-
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -166,6 +165,9 @@ exec --no-startup-id /usr/lib/kdeconnectd
 # fcitx
 exec_always --no-startup-id fcitx
 
+# dunst notification daemon
+exec_always --not-startup-id dunst
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -174,10 +176,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 10 ppt
+        bindsym j resize grow height 5 px or 10 ppt
+        bindsym k resize shrink height 5 px or 10 ppt
+        bindsym l resize grow width 5 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -228,3 +230,16 @@ workspace 3 output HDMI1
 workspace 4 output DP1
 workspace 5 output HDMI1
 workspace 6 output DP1
+
+bindsym $mod+a exec --no-startup-id ~/.scripts/i3cmds/listscript
+# #---Dropdown Windows---# #
+# General dropdown window traits. The order can matter.
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_tmuxdd"] resize set 625 450
+for_window [instance="dropdown_dropdowncalc"] resize set 800 300
+for_window [instance="dropdown_tmuxdd"] border pixel 3
+for_window [instance="dropdown_dropdowncalc"] border pixel 2
+for_window [instance="dropdown_*"] move position center

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+TORRENT_CHOICE=$(cat $SCRIPT/search_site.txt | rofi -dmenu) 
+search_query=$(rofi -dmenu -i -p "search string" | sed 's/ /+/g')
+if [ "$TORRENT_CHOICE" = "1337x.to" ]; then
+    link="1337x.to/search/"$search_query"/1/"
+elif [ "$TORRENT_CHOICE" = "rarbg.to" ]; then
+    link="rarbg.to/torrents.php?search="$search_query
+elif [ "$TORRENT_CHOICE" = "arch_wiki" ]; then
+    link="https://wiki.archlinux.org/index.php?search="$search_query
+elif [ "$TORRENT_CHOICE" = "youtube" ]; then
+    link="https://www.youtube.com/results?search_query="$search_query
+elif [ "$TORRENT_CHOICE" = "google" ]; then
+    link="https://www.google.com/search?q="$search_query
+elif [ "$TORRENT_CHOICE" = "duck_duck_go" ]; then
+    link="https://duckduckgo.com/?q="$search_query
+fi
+if [ -n "$link" ]; then
+    firefox $link
+fi

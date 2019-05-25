@@ -62,7 +62,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, vi-mode, zsh-autosuggestions)
+plugins=(vi-mode)
 bindkey -v
 bindkey 'jk' vi-cmd-mode
 
@@ -99,6 +99,8 @@ source $ZSH/oh-my-zsh.sh
 alias youtube-music="youtube-dl --extract-audio --audio-quality 0 --audio-format m4a"
 alias i3c="vim ~/.config/i3/config"
 alias vimc="vim ~/.vim_runtime/my_configs.vim"
+alias v="vim"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH"
-export IDF_PATH=~/esp/esp-idf
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.profile
+cd ~/

@@ -55,7 +55,7 @@ URxvt*depth:            34
 URxvt.underlineColor:   #81a1c1
 URxvt.highlightColor:   #81a1c1
 URxvt.throughColor:     Blue
-URxvt*cursorColor:      #FF5050
+URxvt*cursorColor:      #93e5cc
 URxvt*cursorColor2:     Magenta
 URxvt*scrollBar:        false
 URxvt*scrollBar_right:  false

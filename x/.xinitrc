@@ -49,4 +49,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 setxkbmap -option caps:escape
-exec i3
+soruce ~/.profile
+xset -b
+exec startkde

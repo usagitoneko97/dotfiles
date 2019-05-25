@@ -1,0 +1,7 @@
+#!/bin/sh
+
+CHOICE=$(cat $SCRIPT/favourite_site.txt | rofi -dmenu)
+if [ $CHOICE ]
+then
+    firefox $CHOICE
+fi
