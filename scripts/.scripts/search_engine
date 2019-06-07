@@ -14,6 +14,8 @@ elif [ "$TORRENT_CHOICE" = "google" ]; then
     link="https://www.google.com/search?q="$search_query
 elif [ "$TORRENT_CHOICE" = "duck_duck_go" ]; then
     link="https://duckduckgo.com/?q="$search_query
+elif [ "$TORRENT_CHOICE" = "zimuku" ]; then
+    link="http://www.zimuku.la/search?q="$search_query
 fi
 if [ -n "$link" ]; then
     firefox $link
