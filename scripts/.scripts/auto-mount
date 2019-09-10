@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo mount /dev/sdd1 /home/usagitoneko/hdd-portable
+sudo mount /dev/sdb7 /home/usagitoneko/hdd-1

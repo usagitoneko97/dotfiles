@@ -30,3 +30,5 @@ nnoremap K {
 :autocmd BufReadPost quickfix nnoremap <CR> <CR>
 
 set timeoutlen=250
+" When shortcut files are updated, renew bash and vifm configs with new material:
+autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts

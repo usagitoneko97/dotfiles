@@ -1,0 +1,12 @@
+#!/bin/bash
+pgrep -x dmenu && exit
+
+declare -A mapping=( ["portainer"]=9000 ["qbittorrent"]=9001 ["plex"]=32400 ["sonarr"]=8989 ["radarr"]=7878 ["nextcloud"]=8081 ["organizr"]=80 \
+    ["jackett"]=9117 ["ombi"]=3579 ["lazylibrarian"]=5299)
+
+choice=$(echo -e "portainer\nqbittorrent\nplex\nsonarr\nradarr\nnextcloud\norganizr\njackett\nombi\nlazylibrarian" | rofi -dmenu)
+
+if [ ! -z $choice ]; then
+    port=${mapping[$choice]}
+    firefox 192.168.1.105:$port
+fi
