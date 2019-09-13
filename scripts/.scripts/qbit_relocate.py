@@ -96,7 +96,7 @@ class QbitApi:
         return r.json()
 
     def set_torrent_location(self, hash, path):
-        r = requests.post(url=self.url + "/torrents/setLocation", data={"hash": hash, "location": path},
+        r = requests.post(url=self.url + "/torrents/setLocation", data={"hash": hash.lower(), "location": path},
                           cookies=self._cookies)
         pass
 
