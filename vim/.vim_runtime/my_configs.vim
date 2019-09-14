@@ -32,3 +32,6 @@ nnoremap K {
 set timeoutlen=250
 " When shortcut files are updated, renew bash and vifm configs with new material:
 autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts
+
+autocmd filetype perl nnoremap <leader>r <Esc>:w<CR>:!clear;perl %<CR>
+autocmd filetype tcl nnoremap <leader>r <Esc>:w<CR>:!clear;tclsh %<CR>

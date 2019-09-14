@@ -1,5 +1,8 @@
 !--------------------xdefauls
-URxvt.font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=11
+URxvt.font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=11, \
+            xft:Source\ Han\ Sans\ CN, \
+            xft:Source\ Han\ Sans\ JP, \
+            xft:Source\ Han\ Sans\ KR
 !URxvt.font: xft:WenQuanYi Micro Hei Mono:regular:size=11
 ! special
 *.foreground:   #BBA590
