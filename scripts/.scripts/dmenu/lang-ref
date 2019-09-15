@@ -6,7 +6,7 @@ use strict;
 use experimental 'smartmatch';
 
 my $source_dir = $ENV{'PROG_REFERENCE'} || "/media/Dropbox/Programming\ Books/";
-chomp(my $choice = `echo "python\nperl\ntcl-tk\nc++" | rofi -dmenu`);
+chomp(my $choice = `echo "python\nperl\ntcl-tk\nc++" | rofi -dmenu -p "language"`);
 
 die $! if ($choice eq "");
 my $source_dir = $source_dir . $choice . '/';
@@ -19,7 +19,7 @@ while (readdir(DIR)) {
     }
 }
 
-chomp(my $file_choice = `echo "$content" | rofi -dmenu`);
+chomp(my $file_choice = `echo "$content" | rofi -dmenu -p "select file"`);
 die $! if ($file_choice eq "");
 my $reader = $ENV{'READER'} || "evince";
 my $full_path = $source_dir . $file_choice;
