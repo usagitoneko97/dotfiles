@@ -1,0 +1,26 @@
+#!/bin/env perl
+# Quickly open up any programming language reference manual.
+# Take the folder path from $PROG_REFERENCE
+
+use strict;
+use experimental 'smartmatch';
+
+my $source_dir = $ENV{'PROG_REFERENCE'} || "/media/Dropbox/Programming\ Books/";
+chomp(my $choice = `echo "python\nperl\ntcl-tk\nc++" | rofi -dmenu`);
+
+die $! if ($choice eq "");
+my $source_dir = $source_dir . $choice . '/';
+print $source_dir;
+opendir (DIR, $source_dir) or die $!;
+my $content = "";
+while (readdir(DIR)) {
+    if (substr($_, 0, 1) ne ".") {
+        $content = $content . $_ . "\n";
+    }
+}
+
+chomp(my $file_choice = `echo "$content" | rofi -dmenu`);
+die $! if ($file_choice eq "");
+my $reader = $ENV{'READER'} || "evince";
+my $full_path = $source_dir . $file_choice;
+`"$reader" "$full_path"`;
