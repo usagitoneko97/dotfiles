@@ -20,7 +20,7 @@ case $chosen in
         systemctl reboot
         ;;
     $lock)
-        light-locker-command -l
+        i3lock -c 000000
         ;;
     $suspend)
         mpc -q pause

@@ -5,15 +5,17 @@ based on certain criteria using qbittorrent set location
 """
 import argparse
 import os
-import logging
+import logging.config
 from client import Client
 from textwrap import dedent
 
 IP = "http://192.168.1.105:9001"
 AUDIO_EXTENSION = ["mp3", "ogg", "wav", "m4b", "m4a"]
+qbit_logger = logging.getLogger(__name__)
 
 
 class Config:
+    log_file = None
     login_cred = [os.environ.get("QBIT_USER", "admin"), os.environ.get("QBIT_PASS", "adminadmin")]
     source_dir = "/media/Books"
     dest_dir = "/media/AudioBooks"
@@ -47,11 +49,11 @@ def _files_matched(t_files, config: Config):
 def refactor_torrents(qb: Client, config: Config):
     qb.login(*config.login_cred)
     if not qb._is_authenticated:
-        logging.error("Invalid login username/password.")
+        qbit_logger.error("Invalid login username/password.")
         return
     n = 1
     hashes_to_change = []
-    logging.info(f"Moving audiobooks from {config.source_dir} to {config.dest_dir}")
+    qbit_logger.info(f"Moving audiobooks from {config.source_dir} to {config.dest_dir}")
     for this_torrent in qb.torrents():
         hash = this_torrent["hash"]
         t_properties = qb.get_torrent(hash)
@@ -59,11 +61,12 @@ def refactor_torrents(qb: Client, config: Config):
         if _files_matched(t_files, config) \
                 and config.tracker in this_torrent["tracker"] \
                 and os.path.samefile(t_properties["save_path"], config.source_dir) :
-            logging.info(f"{n}: {this_torrent['name']}, path {t_properties['save_path']}")
+            qbit_logger.info(f"{n}: {this_torrent['name']}, path {t_properties['save_path']}")
             hashes_to_change.append(hash)
             n += 1
-    logging.info(f"changing {len(hashes_to_change)} torrents to {config.dest_dir}")
+    qbit_logger.info(f"changing {len(hashes_to_change)} torrents to {config.dest_dir}")
     if not config.no_move:
+        qbit_logger.info(f"performing set_location on qittorrent on these hashes: {hashes_to_change}")
         qb.set_location(hashes_to_change, config.dest_dir)
 
 
@@ -94,11 +97,20 @@ if __name__ == '__main__':
     parser.add_argument("-x", "--exclude", dest="exclude_extensions", nargs="+", metavar="<EXT>",
                         help="exclude moving of the files if matches specified extensions")
     parser.add_argument("--no-move", dest="no_move", help="Does not perform set location.", action="store_true")
-    parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                        help="verbosity")
+    parser.add_argument("--log-file", dest="log_file", metavar="<LOG_FILE>", type=argparse.FileType('wb', 0),
+                        help="specify the log file.")
     config = Config()
     parser.parse_args(namespace=config)
-    if config.verbose or config.no_move:
-        logging.basicConfig(level=logging.INFO)
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    if config.log_file:
+        fh = logging.FileHandler(config.log_file.name, 'a')
+        fh.setFormatter(formatter)
+        fh.setLevel(logging.INFO)
+        qbit_logger.addHandler(fh)
+    sh = logging.StreamHandler()
+    sh.setFormatter(formatter)
+    sh.setLevel(logging.INFO)
+    qbit_logger.addHandler(sh)
+    qbit_logger.setLevel(logging.INFO)
     qb = Client(IP)
     refactor_torrents(qb, config)
