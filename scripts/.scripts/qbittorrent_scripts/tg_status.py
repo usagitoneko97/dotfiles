@@ -102,6 +102,11 @@ def config_filters_apply(update: telegram.Update, context: CallbackContext):
     return ConversationHandler.END
 
 
+def resume_all(update: telegram.Update, context: CallbackContext):
+    config = Config()
+    config.qbit_client.resume_all()
+
+
 if __name__ == '__main__':
     QBIT_LOGIN_ID = os.environ["QB_LOGIN_ID"]
     QBIT_LOGIN_PW = os.environ["QB_LOGIN_PW"]
@@ -111,6 +116,7 @@ if __name__ == '__main__':
     TOKEN = os.environ["TG_TOKEN"]
     updater = Updater(TOKEN, use_context=True)
     updater.dispatcher.add_handler(CommandHandler("info", info))
+    updater.dispatcher.add_handler(CommandHandler("resume", resume_all))
 
     # Add conversation handler with the states GENDER, PHOTO, LOCATION and BIO
     config_handler = ConversationHandler(
