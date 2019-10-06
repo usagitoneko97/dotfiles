@@ -6,6 +6,7 @@ import qbittorrent
 import logging
 import itertools
 import pprint
+import tg_helper
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -14,7 +15,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 IP = "http://192.168.1.105:9001"
-CONFIG_FAIL, CONFIG_SELECT, CONFIG_VIEWSEL_APPLY, CONFIG_FILTERS_SUB_QUERY, CONFIG_FILTERS_APPLY = range(5)
 
 
 class Config:
@@ -56,24 +56,40 @@ def info(update: telegram.Update, context: CallbackContext):
     update.message.reply_text(msg)
 
 
-def config_handler_init(update: telegram.Update, context: CallbackContext):
-    markup = telegram.ReplyKeyboardMarkup([["Torrents filter", "Views select"]])
-    update.message.reply_text("Please select the which config to changed.", reply_markup=markup)
-    return CONFIG_SELECT
+config_handler = tg_helper.StateHandler("config")
 
 
-def config_view_selects_query(update: telegram.Update, context: CallbackContext):
-    update.message.reply_text("Type in the list of view to select")
-    return CONFIG_VIEWSEL_APPLY
-
-
+@config_handler.message_handler()
+@config_handler.end
 def config_view_selects_apply(update: telegram.Update, context: CallbackContext):
     config = Config()
     config.views_select = list(update.message.text.split(" "))
     update.message.reply_text(f"Successfully update the views select to :{config.views_select}")
-    return ConversationHandler.END
 
 
+@config_handler.message_handler(Filters.regex(r"Views"))
+@config_handler.goto(config_view_selects_apply)
+def config_view_selects_query(update: telegram.Update, context: CallbackContext):
+    update.message.reply_text("Type in the list of view to select")
+
+
+@config_handler.message_handler()
+@config_handler.end
+def config_filters_apply(update: telegram.Update, context: CallbackContext):
+    config = Config()
+    config.torrents_filter[context.chat_data["filter_select"]] = update.message.text
+    update.message.reply_text(f"Successfully set the filters for {context.chat_data['filter_select']} to {update.message.text}")
+
+
+@config_handler.message_handler()
+@config_handler.goto(config_filters_apply)
+def config_filters_query_sub_filters(update: telegram.Update, context: CallbackContext):
+    context.chat_data["filter_select"] = update.message.text
+    update.message.reply_text("Please specify the value to modify")
+
+
+@config_handler.message_handler(Filters.regex(r"filter"))
+@config_handler.goto(config_filters_query_sub_filters)
 def config_filters_query(update: telegram.Update, context: CallbackContext):
 
     def partitioner(lists, num_per_rows=4):
@@ -86,25 +102,31 @@ def config_filters_query(update: telegram.Update, context: CallbackContext):
     config = Config()
     markup = telegram.ReplyKeyboardMarkup(list(partitioner(config.torrents_filter.keys())))
     update.message.reply_text("Please select the filters to modify", reply_markup=markup)
-    return CONFIG_FILTERS_SUB_QUERY
 
 
-def config_filters_query_sub_filters(update: telegram.Update, context: CallbackContext):
-    context.chat_data["filter_select"] = update.message.text
-    update.message.reply_text("Please specify the value to modify")
-    return CONFIG_FILTERS_APPLY
+@config_handler.command_handler("config")
+@config_handler.entry
+@config_handler.goto(config_view_selects_query, config_filters_query)
+def config_handler_init(update: telegram.Update, context: CallbackContext):
+    markup = telegram.ReplyKeyboardMarkup([["Torrents filter", "Views select"]])
+    update.message.reply_text("Please select the which config to changed.", reply_markup=markup)
 
 
-def config_filters_apply(update: telegram.Update, context: CallbackContext):
-    config = Config()
-    config.torrents_filter[context.chat_data["filter_select"]] = update.message.text
-    update.message.reply_text(f"Successfully set the filters for {context.chat_data['filter_select']} to {update.message.text}")
-    return ConversationHandler.END
+@config_handler.command_handler("cancel")
+@config_handler.fallback
+def config_fail(update: telegram.Update, context: CallbackContext):
+    update.message.reply_text("Error occured!")
 
 
 def resume_all(update: telegram.Update, context: CallbackContext):
     config = Config()
     config.qbit_client.resume_all()
+
+
+class Torznab:
+    def search_torznab(self, update: telegram.Update, context: CallbackContext):
+        update.message.text
+        pass
 
 
 if __name__ == '__main__':
@@ -117,20 +139,7 @@ if __name__ == '__main__':
     updater = Updater(TOKEN, use_context=True)
     updater.dispatcher.add_handler(CommandHandler("info", info))
     updater.dispatcher.add_handler(CommandHandler("resume", resume_all))
-
-    # Add conversation handler with the states GENDER, PHOTO, LOCATION and BIO
-    config_handler = ConversationHandler(
-        entry_points=[CommandHandler("config", config_handler_init)],
-        states={
-            CONFIG_SELECT: [MessageHandler(Filters.regex(r'Views'), config_view_selects_query),
-                            MessageHandler(Filters.regex(r'filter'), config_filters_query)],
-            CONFIG_VIEWSEL_APPLY: [MessageHandler(Filters.all, config_view_selects_apply)],
-            CONFIG_FILTERS_SUB_QUERY: [MessageHandler(Filters.all, config_filters_query_sub_filters)],
-            CONFIG_FILTERS_APPLY: [MessageHandler(Filters.all, config_filters_apply)],
-        },
-        fallbacks=[CommandHandler("cancel", lambda x, y: ConversationHandler.END)]
-    )
-    updater.dispatcher.add_handler(config_handler)
+    updater.dispatcher.add_handler(config_handler.gen_conversation_handler())
 
     updater.start_polling()
     updater.idle()
