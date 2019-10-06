@@ -4,13 +4,15 @@ import telegram
 from telegram.ext import Updater, CommandHandler, CallbackContext, ConversationHandler, MessageHandler, Filters
 import qbittorrent
 import logging
-import itertools
 import pprint
 import tg_helper
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
+
+FILTER_OPTION = {"filter": ["all", "downloading", "completed", "paused", "active", "inactive"],
+                 "reverse": ["true", "false"]}
 
 logger = logging.getLogger(__name__)
 
@@ -85,22 +87,19 @@ def config_filters_apply(update: telegram.Update, context: CallbackContext):
 @config_handler.goto(config_filters_apply)
 def config_filters_query_sub_filters(update: telegram.Update, context: CallbackContext):
     context.chat_data["filter_select"] = update.message.text
-    update.message.reply_text("Please specify the value to modify")
+    kb = None
+    if update.message.text in FILTER_OPTION:
+        kb = telegram.ReplyKeyboardMarkup(list(tg_helper.partitioner(FILTER_OPTION[update.message.text])),
+                                          one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text("Please specify the value to modify", reply_markup=kb)
 
 
 @config_handler.message_handler(Filters.regex(r"filter"))
 @config_handler.goto(config_filters_query_sub_filters)
 def config_filters_query(update: telegram.Update, context: CallbackContext):
-
-    def partitioner(lists, num_per_rows=4):
-        """generate 4 items per row"""
-        start = 0
-        while start < len(lists):
-            yield list(itertools.islice(lists, start, start+num_per_rows))
-            start += num_per_rows
-
     config = Config()
-    markup = telegram.ReplyKeyboardMarkup(list(partitioner(config.torrents_filter.keys())))
+    markup = telegram.ReplyKeyboardMarkup(list(tg_helper.partitioner(config.torrents_filter.keys())),
+                                          one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text("Please select the filters to modify", reply_markup=markup)
 
 
@@ -108,7 +107,8 @@ def config_filters_query(update: telegram.Update, context: CallbackContext):
 @config_handler.entry
 @config_handler.goto(config_view_selects_query, config_filters_query)
 def config_handler_init(update: telegram.Update, context: CallbackContext):
-    markup = telegram.ReplyKeyboardMarkup([["Torrents filter", "Views select"]])
+    markup = telegram.ReplyKeyboardMarkup([["Torrents filter", "Views select"]], one_time_keyboard=True,
+                                          resize_keyboard=True)
     update.message.reply_text("Please select the which config to changed.", reply_markup=markup)
 
 

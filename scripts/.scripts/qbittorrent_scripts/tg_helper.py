@@ -1,4 +1,5 @@
 import collections
+import itertools
 import functools
 from telegram.ext import CommandHandler, ConversationHandler, MessageHandler, Filters
 
@@ -81,4 +82,12 @@ class StateHandler:
             return conv
         except KeyError:
             raise ValueError("did not register function as a handler yet!")
+
+
+def partitioner(lists, num_per_rows=4):
+    """partition list of buttons into multiple rows"""
+    start = 0
+    while start < len(lists):
+        yield list(itertools.islice(lists, start, start+num_per_rows))
+        start += num_per_rows
 
