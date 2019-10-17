@@ -1,11 +1,11 @@
 # Enable colors and change prompt:
-export TERM=rxvt-unicode-256color
+source $HOME/.profile
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
 # History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 HISTFILE=~/.cache/zsh/history
 
 # Basic auto/tab complete:
@@ -58,6 +58,9 @@ rangercd () {
     fi
 }
 bindkey -s '^o' 'rangercd\n'
+bindkey " " magic-space
+bindkey "^p" history-search-backward
+bindkey "^n" history-search-forward
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
@@ -66,10 +69,12 @@ bindkey '^e' edit-command-line
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 
-# Load zsh-syntax-highlighting; should be last.
+# ls colors
+eval `dircolors ~/.config/dircolors.256dark`
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# Load all plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/lib/zsh-git-prompt/zshrc.sh
 PROMPT='[%B%m| %~%b]$(git_super_status)$ '
-source $HOME/.profile
-eval `dircolors ~/.config/dircolors.256dark`
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

@@ -1,6 +1,7 @@
 alias youtube-music="youtube-dl --extract-audio --audio-quality 0 --audio-format m4a"
 alias i3c="vim ~/.config/i3/config"
 alias vimc="vim ~/.vim_runtime/my_configs.vim"
+alias zshc="vim ~/.zshrc"
 alias v="vim"
 alias ls="ls --color=auto"
 alias ll="ls -l"
