@@ -73,6 +73,11 @@ bindkey '^e' edit-command-line
 eval `dircolors ~/.config/dircolors.256dark`
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+# enable shims and auto completion in pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
 # Load all plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/lib/zsh-git-prompt/zshrc.sh
