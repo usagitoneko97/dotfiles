@@ -56,7 +56,8 @@ URxvt*depth:            34
 !URxvt*background:      rgba:0000/0000/0000/AAAA
 !URxvt*background:      [100]#262626
 URxvt.underlineColor:   #81a1c1
-URxvt.highlightColor:   #81a1c1
+URxvt.highlightColor:   Magenta
+URxvt.highlightTextColor:   #000000
 URxvt.throughColor:     Blue
 URxvt*cursorColor:      #93e5cc
 URxvt*cursorColor2:     Magenta

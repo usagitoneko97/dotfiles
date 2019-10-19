@@ -67,8 +67,9 @@ rangercd () {
 }
 bindkey -s '^o' 'rangercd\n'
 bindkey " " magic-space
-bindkey "^p" history-search-backward
-bindkey "^n" history-search-forward
+# zsh by default switch ? and / find operation.
+bindkey -M vicmd "?" "vi-history-search-backward"
+bindkey -M vicmd "/" "vi-history-search-forward"
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
@@ -91,3 +92,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source /usr/lib/zsh-git-prompt/zshrc.sh
 PROMPT='[%B%m| %~%b]$(git_super_status)$ '
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey "^p" history-substring-search-up
+bindkey "^n" history-substring-search-down
+
