@@ -1,5 +1,5 @@
 !--------------------xdefauls
-URxvt.font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=11, \
+URxvt.font: xft:DejaVu Sans Mono for powerline :size=11, \
             xft:Source\ Han\ Sans\ CN, \
             xft:Source\ Han\ Sans\ JP, \
             xft:Source\ Han\ Sans\ KR
