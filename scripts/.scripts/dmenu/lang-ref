@@ -6,7 +6,7 @@ use strict;
 use experimental 'smartmatch';
 
 my $source_dir = $ENV{'PROG_REFERENCE'} || "/media/Dropbox/Programming\ Books/";
-chomp(my $choice = `echo "python\nperl\ntcl-tk\nc++\nbash\nvim" | rofi -dmenu -p "language"`);
+chomp(my $choice = `echo "python\nperl\ntcl-tk\nc++\nbash\nvim\ncompiler" | rofi -dmenu -p "language"`);
 
 die $! if ($choice eq "");
 my $source_dir = $source_dir . $choice . '/';

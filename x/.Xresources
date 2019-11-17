@@ -1,5 +1,5 @@
 !--------------------xdefauls
-URxvt.font: xft:DejaVu Sans Mono for powerline :size=11, \
+URxvt.font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=9, \
             xft:Source\ Han\ Sans\ CN, \
             xft:Source\ Han\ Sans\ JP, \
             xft:Source\ Han\ Sans\ KR
@@ -56,8 +56,7 @@ URxvt*depth:            34
 !URxvt*background:      rgba:0000/0000/0000/AAAA
 !URxvt*background:      [100]#262626
 URxvt.underlineColor:   #81a1c1
-URxvt.highlightColor:   Magenta
-URxvt.highlightTextColor:   #000000
+URxvt.highlightColor:   #81a1c1
 URxvt.throughColor:     Blue
 URxvt*cursorColor:      #93e5cc
 URxvt*cursorColor2:     Magenta
