@@ -96,3 +96,6 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 bindkey "^p" history-substring-search-up
 bindkey "^n" history-substring-search-down
 
+fortune | cowsay
+
+source /home/usagitoneko/.config/broot/launcher/bash/br
