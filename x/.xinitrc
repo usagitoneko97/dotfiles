@@ -51,4 +51,4 @@ fi
 setxkbmap -option caps:escape
 soruce ~/.profile
 xset -b
-exec startkde
+exec i3
