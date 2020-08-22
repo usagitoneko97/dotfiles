@@ -1,0 +1,10 @@
+#!/bin/sh
+
+CHOICE=$(echo -e "the star\nthe edge\nrakuten\nklsescreener" | rofi -dmenu)
+
+case $CHOICE in
+"the star") firefox https://www.thestar.com.my/business;;
+"the edge") firefox https://www.theedgemarkets.com/categories/Malaysia;;
+"rakuten") firefox https://www.rakutentrade.my/login;;
+"klsescreener") firefox https://www.klsescreener.com/v2/watchlists/index/bought;;
+esac

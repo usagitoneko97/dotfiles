@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sel=$(printf "`navi --print`")
+tmux send-keys "${sel}"

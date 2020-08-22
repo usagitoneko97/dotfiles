@@ -1,7 +1,7 @@
 #!/bin/bash
 
-search_query=`echo "" | rofi -dmenu -p`
+search_query=`rofi -dmenu -p`
 
-if [ -n $search_query ]; then
+if [ $search_query ]; then
     firefox "https://www.thesaurus.com/browse/$search_query"
 fi

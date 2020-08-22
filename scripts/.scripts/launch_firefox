@@ -1,0 +1,2 @@
+#!/bin/sh
+wmctrl -a Mozilla || firefox

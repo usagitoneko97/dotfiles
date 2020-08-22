@@ -36,3 +36,4 @@ autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts
 autocmd filetype perl nnoremap <leader>r <Esc>:w<CR>:!clear;perl %<CR>
 autocmd filetype tcl nnoremap <leader>r <Esc>:w<CR>:!clear;tclsh %<CR>
 autocmd filetype python nnoremap <leader>r <Esc>:w<CR>:!clear;python %<CR>
+autocmd filetype matlab nnoremap <leader>r <Esc>:w<CR>:!clear;octave %<CR>

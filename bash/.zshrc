@@ -93,9 +93,15 @@ source /usr/lib/zsh-git-prompt/zshrc.sh
 PROMPT='[%B%m| %~%b]$(git_super_status)$ '
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 bindkey "^p" history-substring-search-up
 bindkey "^n" history-substring-search-down
 
 fortune | cowsay
 
 source /home/usagitoneko/.config/broot/launcher/bash/br
+source ~/.scripts/zsh-interactive-cd.plugin.zsh
+
+bindkey -s "^g" '/home/usagitoneko/.scripts/navi\n'
+
